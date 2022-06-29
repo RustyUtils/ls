@@ -1,0 +1,11 @@
+[package]
+author = ["Thamognya Kodi <contact@thamognya.com>"] 
+name = "ls"
+version = "0.0.1"
+edition = "2021"
+
+[dependencies]
+structopt = ">=0.3.26"
+chrono = ">=0.4.19"
+libc = ">=0.2.126"
+colored = ">=2.0.0"
