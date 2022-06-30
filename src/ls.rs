@@ -104,27 +104,13 @@ fn run(dir: &PathBuf) -> Result<(), Box<dyn Error>>
 
             let metadata_two = fs::metadata(&file_name.to_string())?;
 
-            if metadata_two.is_dir()
-            {
-                println!("{} {} {:>5} {} {}{}", 
-                    ino.to_string().magenta(),
-                    parse_permissions(mode as u32), 
-                    size.to_string().green(), 
-                    modified.format("%_d %b %H:%M").to_string().red(), 
-                    file_name.to_string().blue(),
-                    "/".blue()
-                );
-            }
-            else
-            {
-                println!("{} {} {:>5} {} {}", 
-                    ino.to_string().magenta(),
-                    parse_permissions(mode as u32), 
-                    size.to_string().green(), 
-                    modified.format("%_d %b %H:%M").to_string().red(), 
-                    file_name.to_string().blue()
-                );
-            }
+            println!("{} {} {:>5} {} {}", 
+                ino.to_string().magenta(),
+                parse_permissions(mode as u32), 
+                size.to_string().green(), 
+                modified.format("%_d %b %H:%M").to_string().red(), 
+                file_name.to_string().blue()
+            );
         }
     }
     Ok(())
