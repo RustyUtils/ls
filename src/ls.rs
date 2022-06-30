@@ -5,6 +5,7 @@ extern crate colored; // not needed in Rust 2018
 
 
 use std::fs;
+use std::fs::metadata;
 use std::path::PathBuf;
 use std::error::Error;
 use std::process;
@@ -80,6 +81,7 @@ fn run(dir: &PathBuf) -> Result<(), Box<dyn Error>>
             Style::new().underline().paint("Date Modified").to_string(),
             Style::new().underline().paint("Name").to_string()
         );
+
         for entry in fs::read_dir(dir)? 
         {
             let entry = entry?;
@@ -100,13 +102,29 @@ fn run(dir: &PathBuf) -> Result<(), Box<dyn Error>>
             
             let gid = metadata.st_gid(); // groud id
 
-            println!("{} {} {:>5} {} {}", 
+            let metadata_two = fs::metadata(&file_name.to_string())?;
+
+            if metadata_two.is_dir()
+            {
+                println!("{} {} {:>5} {} {}{}", 
+                    ino.to_string().magenta(),
+                    parse_permissions(mode as u32), 
+                    size.to_string().green(), 
+                    modified.format("%_d %b %H:%M").to_string().red(), 
+                    file_name.to_string().blue(),
+                    "/".blue()
+                );
+            }
+            else
+            {
+                println!("{} {} {:>5} {} {}", 
                     ino.to_string().magenta(),
                     parse_permissions(mode as u32), 
                     size.to_string().green(), 
                     modified.format("%_d %b %H:%M").to_string().red(), 
                     file_name.to_string().blue()
-            );
+                );
+            }
         }
     }
     Ok(())
