@@ -1,6 +1,6 @@
 [package]
 author = ["Thamognya Kodi <contact@thamognya.com>"] 
-name = "ls"
+name = "lsr"
 version = "0.0.1"
 edition = "2021"
 

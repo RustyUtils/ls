@@ -80,7 +80,6 @@ fn run(dir: &PathBuf) -> Result<(), Box<dyn Error>>
             Style::new().underline().paint("Date Modified").to_string(),
             Style::new().underline().paint("Name").to_string()
         );
-
         for entry in fs::read_dir(dir)? 
         {
             let entry = entry?;
